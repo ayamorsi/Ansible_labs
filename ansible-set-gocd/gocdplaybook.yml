@@ -1,0 +1,17 @@
+---
+- hosts: web
+  remote_user: ec2-user
+  become: true 
+  tasks:
+    - name: Download gocd.repo
+      get_url:
+        url: https://download.gocd.org/gocd.repo
+        dest: /etc/yum.repos.d/gocd.repo
+    - name: install go-server
+      yum:
+        name: go-server
+        state: latest
+    - name: start go-server
+      service:
+        name: go-server
+        state: started

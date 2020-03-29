@@ -1,0 +1,21 @@
+---
+- hosts: web
+  remote_user: ec2-user
+  become: true
+  tasks:
+    - name: ensure nginx is at the latest version
+    yum:
+     name: nginx
+     state: latest
+  - name: start nginx service
+    service:
+      name: nginx
+      state: started
+  - name: Copy file 
+    copy:
+      src: welcome.html 
+      dest: /usr/share/nginx/html/index.html
+  
+
+
+  
